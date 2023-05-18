@@ -5,6 +5,7 @@ import { CountdownContainer, FormContainer, HomeContainer, MinutesAmountInput, S
 import { useForm } from 'react-hook-form'
 import * as zod from 'zod'
 import {zodResolver} from '@hookform/resolvers/zod'
+import { useState } from 'react'
 
 
 // interfaces 
@@ -13,13 +14,24 @@ interface NewCycleFormData {
   minutesAmount: number,
 }
 
+interface Cycle {
+  id: string,
+  task: string,
+  minutesAmount: number
+
+}
+
 // validation schema
 const newCycleFormValidationSchema = zod.object({
   task: zod.string().min(1, 'Informe a tarefa'),
   minutesAmount: zod.number().min(5, 'Valor mínimo de 5 minutos').max(60, 'Valor máximo de 60 minutos')
 })
 
+ // ====================================================================================> 
+
 export const Home  = () => {
+  const [cycles, setCycles] = useState<Cycle[]>([])
+  const [activeCycleId, setActiveCycleId] = useState< string | null >(null)
 
   // form & validation
   const { register, handleSubmit, watch, reset } = useForm<NewCycleFormData>({
@@ -30,13 +42,24 @@ export const Home  = () => {
     }
   })
 
-
-
-
   function handleCreateNewCycle (data: NewCycleFormData) {
-    console.log(data);
+    const newCycle: Cycle = {
+      id: crypto.randomUUID(),
+      task: data.task,
+      minutesAmount: data.minutesAmount
+    }
+    setCycles((previousState) => [...previousState, newCycle])
+    setActiveCycleId(newCycle.id)
+
     reset()
  }
+
+  const activeCycle = cycles.find((cycle) => {
+    return cycle.id === activeCycleId
+  })
+
+  console.log(activeCycle);
+  
 
   // disable button
   const task = watch('task')
