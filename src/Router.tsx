@@ -1,6 +1,6 @@
 import {Routes, Route} from 'react-router-dom'
 import { Home } from './pages/Home'
-import { History } from './pages/History/History'
+import { History } from './pages/History'
 import { DefaultLayout } from './layouts/DefaultLayout'
 
 export const Router = () => {
@@ -10,7 +10,6 @@ export const Router = () => {
         <Route path='/' element={ <Home />}/>
         <Route path='/history' element={ <History />}/>
       </Route>
-        
     </Routes>
 
   )
