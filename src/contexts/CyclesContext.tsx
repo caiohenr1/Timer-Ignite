@@ -85,7 +85,6 @@ export function CyclesContextProvider( { children }: CyclesContextProviderProps)
       })
     )
   }
-
   return (
     <CyclesContext.Provider
       value={{

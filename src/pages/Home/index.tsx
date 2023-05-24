@@ -10,8 +10,6 @@ import { Countdown } from './components/Countdown'
 import { CyclesContext } from '../../contexts/CyclesContext'
 import { useContext } from 'react'
 
-
-
 // interfaces 
 interface NewCycleFormData {
   task: string,
@@ -50,13 +48,10 @@ export const Home = () => {
   return (
     <HomeContainer>
       <form onSubmit={handleSubmit(handleCreateNewCycle)}>
-        
           <FormProvider {...newCycleForm}>
             <NewCycleForm />
           </FormProvider>
-
           <Countdown />
-       
         {activeCycle ? <StopCountdownButton onClick={interruptCurrentCycle}>
           <HandPalm size={24} /> Interromper
         </StopCountdownButton> : <StartCountdownButton
